@@ -24,11 +24,11 @@ details{border-top:1px solid var(--line);padding:8px 0}summary{cursor:pointer;fo
 </style></head><body>
 <header><div class="bar"><b class="logo">HOKI STATION</b><nav id="nav"></nav><div id="acc"></div></div></header>
 <main id="app"></main>
+<script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-/* ===== ISI DUA BARIS INI (Supabase: Project Settings > API). Kunci anon memang publik; keamanan ada di aturan RLS. ===== */
-const SUPABASE_URL="ISI_DENGAN_PROJECT_URL",SUPABASE_KEY="ISI_DENGAN_ANON_PUBLIC_KEY";
-/* ============================================================ */
+/* Alamat dan kunci Supabase dibaca dari berkas config.js (lihat README). Kunci publik memang boleh terlihat; keamanan ada di aturan RLS. */
+const SUPABASE_URL=window.HOKI_URL||"ISI_DENGAN_PROJECT_URL",SUPABASE_KEY=window.HOKI_KEY||"ISI_DENGAN_ANON_PUBLIC_KEY";
 const CATS=["Artikel","Berita","Cerpen","Cerbung","Dongeng","Fabel","Novelet","Opini","Pantun","Puisi","Religi","Resensi","Tutorial"];
 const AV=["🍎","🍊","🍋","🍉","🍇","🍓","🍍","🥝","🍑","🥭","🍒","🍐","🥥","🍌","🫐","🍈","🍏","🥑","🍅","🫒"];
 const ROLES=["siswa","guru","alumni","umum","admin"];
@@ -42,7 +42,7 @@ let RP={t:"light",s:17};try{RP=JSON.parse(localStorage.getItem("rp"))||RP}catch(
 const saveRP=()=>{try{localStorage.setItem("rp",JSON.stringify(RP))}catch(e){}};
 
 async function boot(){
- if(SUPABASE_URL.startsWith("ISI")){$("app").innerHTML=card("<h2>Belum dikonfigurasi</h2><p>Isi SUPABASE_URL dan SUPABASE_KEY di bagian atas berkas index.html. Lihat README.</p>");return}
+ if(SUPABASE_URL.startsWith("ISI")){$("app").innerHTML=card("<h2>Belum dikonfigurasi</h2><p>Buat berkas config.js berisi alamat dan kunci Supabase Anda (contohnya ada di config.contoh.js). Lihat README.</p>");return}
  sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
  sb.auth.onAuthStateChange(ev=>{if(ev=="PASSWORD_RECOVERY")location.hash="#baru"});
  await load();addEventListener("hashchange",go);go()}
