@@ -1,0 +1,2 @@
+window.HOKI_URL="https://ISI_PROJECT_ID.supabase.co";
+window.HOKI_KEY="ISI_KUNCI_PUBLISHABLE_ATAU_ANON";
